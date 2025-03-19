@@ -1,0 +1,86 @@
+/* Sidebar Styling */
+.sidebar {
+    width: 20%;
+    max-width: 250px; /* Ensures it doesn't get too wide */
+    min-height: 100vh;
+    background: #2c3e50; /* Dark background for a modern look */
+    border-right: 2px solid #34495e; /* Slightly lighter border for contrast */
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2); /* More subtle shadow */
+    transition: width 0.3s ease-in-out;
+}
+
+/* Sidebar options container */
+.side-options {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Individual sidebar option styling */
+.sidebar-option {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #34495e; /* Slightly lighter background */
+    border-radius: 12px; /* Rounded corners */
+    padding: 10px 16px;
+    color: #ecf0f1; /* Light text color */
+    text-decoration: none; /* Remove underline */
+    transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+}
+
+/* Active state styling */
+.sidebar-option.active {
+    background-color: #2980b9; /* Bright blue for active */
+    border: 2px solid #1f618d; /* Darker blue border */
+    color: white;
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Hover effect */
+.sidebar-option:hover {
+    background-color: #1abc9c; /* Teal background */
+    border: 2px solid #16a085;
+    color: white;
+    transform: scale(1.03);
+}
+
+/* Responsive Sidebar for Smaller Screens */
+@media (max-width: 900px) {
+    .sidebar {
+        width: 70px; /* Collapse to a smaller width */
+        padding: 10px;
+        align-items: center; /* Center items */
+        border-right: none;
+    }
+
+    .side-options {
+        align-items: center;
+    }
+
+    .sidebar-option {
+        justify-content: center; /* Center-align icons */
+        padding: 12px;
+        width: 50px;
+        border-radius: 50%;
+        transition: all 0.3s;
+    }
+
+    .sidebar-option p {
+        display: none; /* Hide text on small screens */
+    }
+
+    .sidebar-option img {
+        width: 28px; /* Adjust icon size */
+    }
+
+    .sidebar-option:hover {
+        width: 55px;
+        background-color: #16a085;
+    }
+}
