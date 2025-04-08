@@ -1,12 +1,10 @@
-
 # 🍔 QuickEats
 
 ![image](https://github.com/user-attachments/assets/824a332f-e9dc-481a-9d63-d0c93579d336)
 
-
 <div align="center">
   <b>Modern MERN-based food ordering web application</b><br/>
-  Complete with user ordering flow, admin CRM dashboard, lead management system, and payment gateway integration.
+  Complete with user ordering flow, admin CRM dashboard, lead management system, payment gateway integration, and real-time email notifications.
 </div>
 
 ---
@@ -19,7 +17,7 @@
 
 ## 🚀 Overview
 
-**QuickEats** is a comprehensive MERN stack food ordering platform that allows users to explore food items, add them to the cart, and place orders using an integrated payment system. It also features a robust **admin panel** with order processing, lead tracking, CRM analytics, and full CRUD operations for managing food items and customer interactions.
+**QuickEats** is a full-featured MERN stack food ordering platform where users can browse food items, place orders with integrated payments, and receive real-time updates via email. It also includes a powerful **admin dashboard** for order management, lead tracking, CRM insights, inventory control, and email-based communication with users using an SMTP server.
 
 ---
 
@@ -29,40 +27,43 @@
 - 📝 Secure Sign Up / Sign In with JWT
 - 🍕 Browse food menu with detailed item view
 - 🛒 Add items to cart, modify quantity, remove
-- 💳 Order with integrated payment gateway
+- 💳 Pay securely via integrated payment gateway
+- 📬 Real-time order email notifications (via SMTP)
 - 📦 View order history and live order tracking
 
 ### 🧑‍💼 Admin Features
-- 📊 **CRM Dashboard** with sales metrics, user data
+- 📊 **CRM Dashboard** with sales/user metrics
 - 🔍 **Lead Management System** for handling potential clients
-- ⚙️ Manage menu (add/update/delete food items)
-- 🧾 Full order lifecycle management (approve/reject/process)
-- 📈 Track daily and cumulative order performance
+- ⚙️ Manage food inventory (Add / Update / Delete)
+- 🧾 Order processing system (Pending / Processed / Rejected)
+- 📈 Daily and cumulative performance reports
+- 📬 Send emails/updates to users using SMTP
 
 ---
 
 ## 🛠 Tech Stack
 
-| Tech         | Description                  |
-|--------------|------------------------------|
-| **React.js** | Frontend development         |
-| **Tailwind CSS** | Utility-first styling       |
-| **Node.js**  | Backend runtime              |
-| **Express.js** | RESTful APIs                |
-| **MongoDB**  | NoSQL database               |
-| **Mongoose** | MongoDB ODM                  |
-| **JWT**      | Authentication               |
-| **Razorpay / Stripe** | Payment integration     |
+| Tech         | Description                         |
+|--------------|-------------------------------------|
+| **React.js** | Frontend development                |
+| **Tailwind CSS** | Utility-first styling            |
+| **Node.js**  | Backend runtime                     |
+| **Express.js** | RESTful APIs                       |
+| **MongoDB**  | NoSQL database                      |
+| **Mongoose** | MongoDB ODM                         |
+| **JWT**      | Authentication                      |
+| **Razorpay / Stripe** | Payment gateway integration    |
+| **Nodemailer** | Email notifications via SMTP server |
 
 ---
 
 ## 📸 Preview Screenshots
 
-> ⚠️ Add actual image links from your hosted screenshots or local images
+> ⚠️ Replace the URLs with hosted image links
 
 | User View | Admin Dashboard | Lead Management |
 |----------|----------------|----------------|
-| ![image](https://github.com/user-attachments/assets/e437599b-94c2-446b-ae5b-e1edd3eb6011)| ![image](https://github.com/user-attachments/assets/bb75a683-b14a-43ca-ae6f-99921197db83)| ![image](https://github.com/user-attachments/assets/6776cc42-ffab-4ee3-b671-fa597f54da68)|
+| ![image](https://github.com/user-attachments/assets/e437599b-94c2-446b-ae5b-e1edd3eb6011) | ![image](https://github.com/user-attachments/assets/bb75a683-b14a-43ca-ae6f-99921197db83) | ![image](https://github.com/user-attachments/assets/6776cc42-ffab-4ee3-b671-fa597f54da68) |
 
 ---
 
@@ -78,10 +79,13 @@ cd QuickEats
 ### Install Frontend & Backend Dependencies
 
 ```bash
-cd client
+cd frontend
 npm install
 
-cd ../server
+cd ../backend
+npm install
+
+cd ../admin
 npm install
 ```
 
@@ -93,6 +97,10 @@ Create a `.env` file in `backend/` with:
 MONGO_URI=your_mongo_connection
 JWT_SECRET=your_secret_key
 PAYMENT_GATEWAY_KEY=your_payment_key
+SMTP_HOST=smtp.yourprovider.com
+SMTP_PORT=587
+SMTP_USER=your_email@example.com
+SMTP_PASS=your_email_password
 ```
 
 ### Run the App
@@ -103,12 +111,12 @@ cd frontend
 npm run dev
 
 # Backend
-cd backend
+cd ../backend
 npm run dev
 
 # Admin
-cd admin
-nppm run dev
+cd ../admin
+npm run dev
 ```
 
 ---
@@ -118,9 +126,9 @@ nppm run dev
 ```
 QuickEats/
 │
-├── frontend/              # Frontend React app
-├── backend/               # Backend API with Express
-├── admin/                 # Business logic
+├── frontend/              # React.js user-facing site
+├── backend/               # Express.js + MongoDB APIs
+├── admin/                 # Admin dashboard for management
 └── README.md              # You're here!
 ```
 
@@ -128,9 +136,11 @@ QuickEats/
 
 ## ✅ To-Do (Suggestions)
 
-- [ ] Add email notifications for order confirmation
-- [ ] Add delivery tracking status
-- [ ] Mobile app version (React Native / Flutter)
+- [ ] Implement delivery tracking with status update UI
+- [ ] Add user profile and address management
+- [ ] Build mobile version (React Native / Flutter)
+- [ ] Add support for coupons or discounts
+- [ ] Enhance dashboard with advanced analytics
 
 ---
 
@@ -139,7 +149,7 @@ QuickEats/
 For feedback or collaboration:
 
 - GitHub: [@Shinkhal](https://github.com/Shinkhal)
-- Email: [shinkhalsinha@gmail.com]
+- Email: [shinkhalsinha@gmail.com](mailto:shinkhalsinha@gmail.com)
 
 ---
 
