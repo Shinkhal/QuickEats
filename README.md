@@ -1,7 +1,8 @@
 
 # 🍔 QuickEats
 
-![QuickEats Banner](https://your-screenshot-url.com/banner.png)
+![image](https://github.com/user-attachments/assets/824a332f-e9dc-481a-9d63-d0c93579d336)
+
 
 <div align="center">
   <b>Modern MERN-based food ordering web application</b><br/>
@@ -61,7 +62,7 @@
 
 | User View | Admin Dashboard | Lead Management |
 |----------|----------------|----------------|
-| ![User](https://your-screenshot-url.com/user.png) | ![Admin](https://your-screenshot-url.com/admin.png) | ![Lead](https://your-screenshot-url.com/lead.png) |
+| ![image](https://github.com/user-attachments/assets/e437599b-94c2-446b-ae5b-e1edd3eb6011)| ![image](https://github.com/user-attachments/assets/bb75a683-b14a-43ca-ae6f-99921197db83)| ![image](https://github.com/user-attachments/assets/6776cc42-ffab-4ee3-b671-fa597f54da68)|
 
 ---
 
@@ -86,7 +87,7 @@ npm install
 
 ### Configure Environment Variables
 
-Create a `.env` file in `server/` with:
+Create a `.env` file in `backend/` with:
 
 ```env
 MONGO_URI=your_mongo_connection
@@ -98,12 +99,16 @@ PAYMENT_GATEWAY_KEY=your_payment_key
 
 ```bash
 # Frontend
-cd client
+cd frontend
 npm run dev
 
 # Backend
-cd ../server
-npm run start
+cd backend
+npm run dev
+
+# Admin
+cd admin
+nppm run dev
 ```
 
 ---
@@ -113,12 +118,10 @@ npm run start
 ```
 QuickEats/
 │
-├── client/               # Frontend React app
-├── server/               # Backend API with Express
-├── models/               # MongoDB schemas
-├── routes/               # API endpoints
-├── controllers/          # Business logic
-└── README.md             # You're here!
+├── frontend/              # Frontend React app
+├── backend/               # Backend API with Express
+├── admin/                 # Business logic
+└── README.md              # You're here!
 ```
 
 ---
@@ -136,7 +139,7 @@ QuickEats/
 For feedback or collaboration:
 
 - GitHub: [@Shinkhal](https://github.com/Shinkhal)
-- Email: [your-email@example.com]
+- Email: [shinkhalsinha@gmail.com]
 
 ---
 
