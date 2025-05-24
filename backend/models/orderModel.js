@@ -28,7 +28,7 @@ const orderSchema = new mongoose.Schema({
   address: { type: AddressSchema, required: true },
   date: { type: Date, default: Date.now },
   paymentStatus: { type: String, enum: ["Pending", "Completed", "Failed"], default: "Pending" },
-  orderId: { type: String, unique: true }, // Razorpay Order ID
+  orderId: { type: String }, // Razorpay Order ID
   razorpay_payment_id: { type: String },
   razorpay_signature: { type: String },
 });
