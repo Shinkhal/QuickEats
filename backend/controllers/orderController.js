@@ -3,6 +3,7 @@ import userModel from "../models/userModel.js";
 import Razorpay from "razorpay";
 import crypto from "crypto";
 import { sendEmail } from "../utils/emailSender.js";
+import { sendWhatsApp } from "../utils/WhatsappSender.js";
 
 // Initialize Razorpay instance
 const razorpayInstance = new Razorpay({
@@ -69,8 +70,18 @@ const placeOrder = async (req, res) => {
         Best regards,  
         The Quick Eats Team  
         Contact Support: support@quickeats.com  
-        Customer Service: +91 9936165538`;
+        Customer Service: +91 8409968435`;
 
+        // Send WhatsApp message
+        const whatsappMessage = `Hello ${address.firstName},\n\nThank you for placing your order with Quick Eats! 🎉\n\nOrder ID: ${newOrder._id}\nAmount: ₹${amount}\n\nWe'll notify you when your order is out for delivery.\n\n-Team Quick Eats`;
+        // Ensure phone number includes country code
+        let phoneWithCountryCode = address.phone;
+        if (!phoneWithCountryCode.startsWith("+")) {
+            phoneWithCountryCode = `+91${phoneWithCountryCode}`;
+        }
+        
+        // Send WhatsApp message
+        await sendWhatsApp(phoneWithCountryCode, whatsappMessage);
 
         await sendEmail(address.email, emailSubject, emailText);
 
@@ -149,22 +160,23 @@ const verifiedOrder = async (req, res) => {
     }
 };
 
-// Fetch Orders for a User
-// Fetch Orders for a Specific User
-const usersOrders = async (req, res) => {
-    try {
-        const { userId } = req.body;
-        if (!userId) {
-            return res.status(400).json({ success: false, message: "User ID is required" });
-        }
+const getAllOrders = async (req, res) => {
+  try {
+    const orders = await orderModel.find({}).sort({ createdAt: -1 });
+    res.json({ success: true, orders });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
 
-        const orders = await orderModel.find({ userId });
-
-        res.status(200).json({ success: true, data: orders });
-    } catch (error) {
-        console.error("Error fetching user orders:", error);
-        res.status(500).json({ success: false, message: "Internal Server Error" });
-    }
+const getUserOrders = async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const orders = await orderModel.find({ userId }).sort({ createdAt: -1 });
+    res.json({ success: true, orders });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
 };
 
 
@@ -189,13 +201,65 @@ const updateStatus = async (req, res) => {
             return res.status(400).json({ success: false, message: "Invalid status or order ID" });
         }
 
+        // Get the order details to access user contact information and order details
+        const order = await orderModel.findById(orderId);
+        if (!order) {
+            return res.status(404).json({ success: false, message: "Order not found" });
+        }
+
+        // Update the status
         await orderModel.findByIdAndUpdate(orderId, { status });
 
-        res.status(200).json({ success: true, message: "Status Updated" });
+        // Send WhatsApp notification about status update
+        let statusMessage = "";
+        switch(status) {
+            case "Food Processing":
+                statusMessage = `Your order #${orderId} is being prepared in our kitchen! We'll let you know when it's on the way.`;
+                break;
+            case "Out for Delivery":
+                statusMessage = `Great news! Your order #${orderId} is now out for delivery and will arrive shortly.`;
+                break;
+            case "Delivered":
+                statusMessage = `Your order #${orderId} has been delivered! Thank you for choosing Quick Eats. Enjoy your meal! 😊`;
+                break;
+            case "Cancelled":
+                statusMessage = `Your order #${orderId} has been cancelled. If you didn't request this cancellation, please contact our support team.`;
+                break;
+            default:
+                statusMessage = `The status of your order #${orderId} has been updated to: ${status}`;
+        }
+
+        const whatsappMessage = `Hello ${order.address.firstName},\n\n${statusMessage}\n\nOrder Amount: ₹${order.amount}\n\nFor any assistance, call our support: +91 8409968435\n\n-Team Quick Eats`;
+        let phoneWithCountryCode = order.address.phone;
+        if (!phoneWithCountryCode.startsWith("+")) {
+            phoneWithCountryCode = `+91${phoneWithCountryCode}`;
+        }
+        
+        // Send WhatsApp status update message
+        await sendWhatsApp(phoneWithCountryCode, whatsappMessage);
+
+        res.status(200).json({ success: true, message: "Status Updated and notification sent" });
     } catch (error) {
         console.error("Error updating order status:", error);
         res.status(500).json({ success: false, message: "Internal Server Error" });
     }
 };
 
-export { placeOrder, verifyOrder, verifiedOrder, usersOrders, listOrder, updateStatus };
+const usersOrders = async (req, res) => {
+    try {
+        const { userId } = req.body;
+        if (!userId) {
+            return res.status(400).json({ success: false, message: "User ID is required" });
+        }
+
+        const orders = await orderModel.find({ userId });
+
+        res.status(200).json({ success: true, data: orders });
+    } catch (error) {
+        console.error("Error fetching user orders:", error);
+        res.status(500).json({ success: false, message: "Internal Server Error" });
+    }
+};
+
+
+export { placeOrder, verifyOrder, verifiedOrder, getAllOrders, getUserOrders, listOrder, updateStatus , usersOrders};
