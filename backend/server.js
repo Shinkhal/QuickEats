@@ -6,6 +6,7 @@ import 'dotenv/config';
 import userRouter from "./routes/userRoute.js";
 import cartRouter from "./routes/cartRoute.js";
 import orderRouter from "./routes/orderRoute.js";
+import queryRouter from "./routes/queryRoute.js";
 import { generateLeadData, fetchAndUpdateAllUserLeadScores } from "./controllers/LeadController.js";
 // import paymentRoutes from "./routes/paymentRoutes.js";
 // App configuration
