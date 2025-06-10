@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import axios from "axios";
 import { motion } from "framer-motion";
 import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { StoreContext } from '../context/StoreContext';
 
 const QueryForm = () => {
+  const { url, token } = useContext(StoreContext);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -20,9 +21,13 @@ const QueryForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(
-        "http://localhost:5000/api/users/submit-query",
-        formData
+      const res = await axios.post(`${url}/api/user/submit-query`,
+        formData,{
+          headers:{
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          }
+        }
       );
       toast.success(res.data.message);
       setFormData({
@@ -33,16 +38,16 @@ const QueryForm = () => {
         expertise: "Chef",
       });
     } catch (err) {
-      toast.error("Error submitting form!");
+      toast.error("Error submitting form!",err);
     }
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-gradient-to-br from-gray-900 via-purple-800 to-blue-500 text-white">
+    <div className="flex flex-col min-h-screen bg-neutral-200  text-white mt-10">
       {/* Form Section */}
       <div className="flex flex-grow items-center justify-center p-6">
         <motion.div
-          className="bg-white bg-opacity-20 backdrop-blur-lg text-gray-900 p-10 rounded-2xl shadow-2xl w-full max-w-lg"
+          className="bg-gradient-to-br from-gray-900 via-purple-800 to-blue-500 bg-opacity-20 backdrop-blur-lg text-gray-900 p-10 rounded-2xl shadow-2xl w-full max-w-lg"
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
