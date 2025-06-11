@@ -29,7 +29,7 @@ const ProfilePage = () => {
       const response = await axios.post(
         `${url}/api/order/userorders`,
         { userId },
-        { headers: { token } }
+        { headers: { Authorization: `Bearer ${token}` } }
       );
       setOrders(response.data.data);
     } catch (error) {
@@ -47,6 +47,7 @@ const ProfilePage = () => {
       setLoading(false);
     };
     fetchData();
+    fetchOrders();
   }, [token]);
 
   // Calculate total orders and total spent

@@ -1,10 +1,10 @@
-import  { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { StoreContext } from '../context/StoreContext';
 import axios from 'axios';
 import { assets } from '../assets/assets';
 
 const MyOrders = () => {
-  const { url, token , userId} = useContext(StoreContext);
+  const { url, token, userId ,} = useContext(StoreContext);
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -13,8 +13,8 @@ const MyOrders = () => {
     try {
       const response = await axios.post(
         `${url}/api/order/userorders`,
-        {userId},
-        { headers: { token } }
+        { userId },
+        { headers: { Authorization: `Bearer ${token}` } }
       );
       setData(response.data.data);
     } catch (error) {
@@ -25,10 +25,10 @@ const MyOrders = () => {
   };
 
   useEffect(() => {
-    if (token) {
+    if (token && userId) {
       fetchOrders();
     }
-  }, [token]);
+  }, [token, userId]);
 
   return (
     <div className="min-h-screen bg-gray-50 p-6 mt-16">
@@ -66,7 +66,7 @@ const MyOrders = () => {
                   onClick={fetchOrders}
                   className="mt-3 inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
                 >
-                  Track Order
+                  Refresh
                 </button>
               </div>
             </div>
