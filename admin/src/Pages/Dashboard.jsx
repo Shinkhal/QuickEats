@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import {
   PieChart, Pie, Cell, Tooltip, ResponsiveContainer,
   LineChart, Line, XAxis, YAxis, CartesianGrid,
-  BarChart, Bar, Legend
+  BarChart, Bar,
 } from "recharts";
 
 const Dashboard = ({ url }) => {

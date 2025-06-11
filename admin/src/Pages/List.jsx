@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 
@@ -20,7 +20,7 @@ const List = ({ url }) => {
         toast.error("Error fetching list");
       }
     } catch (error) {
-      toast.error("Error fetching list");
+      toast.error("Error fetching list",error);
     } finally {
       setLoading(false);
     }
@@ -43,7 +43,7 @@ const List = ({ url }) => {
         toast.error("Error removing food");
       }
     } catch (error) {
-      toast.error("Error removing food");
+      toast.error("Error removing food", error);
     }
   };
 
